@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <th:block xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"></th:block>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <title>ANAF</title>
+</head>
+<!-- #2E4CA6 -->
+<!-- #4973F2 -->
+<!-- #4167D9 -->
+<!-- #8DA6F2 -->
+<!-- #F2F2F2 -->
+<body>
+<div class="page">
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/images/logoANAF.png" alt="logo" class="logo_img">
+            <p>Agenția Națională de Administrare Fiscală</p>
+        </div>
+
+        <div class="login_display">
+            <p>Bun venit, <b><span th:text="${username}"></span></b>!</p>
+            <div class="options">
+                <a href="/logout">Logout</a>
+                <a href="/">Pagina principală</a>
+                <a href="/vizualizare_tabele">Vizualizare tabele</a>
+                <a href="/taxe">Adaugă taxe</a>
+                <a href="/vizualizare_taxe">Vizualizare taxe</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="table_container">
+        <div class="title">
+            <h2>Vizualizare persoane</h2>
+
+            <div class="border-decoration">
+                <span class="bd1"></span>
+                <span class="bd2"></span>
+                <span class="bd3"></span>
+            </div>
+        </div>
+
+        <div class="table">
+            <table>
+                <thead>
+                <tr>
+                    <th th:each="col : ${columnNamesPersoana}" th:text="${col.column_name}"></th>
+                    <th th:if="${detalii == null}"></th> <!-- Add Actions column for buttons -->
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="row : ${dataListPersoana}">
+                    <td th:each="col : ${columnNamesPersoana}" th:text="${row[col.column_name]}"></td>
+
+                    <td th:if="${detalii == null}">
+                    <form action="/vizualizare_persoane" method="post">
+                        <input type="hidden" name="detalii" th:value="${row}">
+                        <button type="submit" class="submit_button">Detalii persoana</button>
+                    </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div th:if="${detalii != null}" class="view-pers">
+                <h2>Adresa</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th th:each="col : ${columnNamesAdresa}" th:text="${col.column_name}"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="row : ${dataListAdresa}">
+                        <td th:each="col : ${columnNamesAdresa}" th:text="${row[col.column_name]}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="flex big-gap">
+                    <div>
+                        <h2>Venituri</h2>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th th:each="col : ${columnNamesVenituri}" th:text="${col.column_name}"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="row : ${dataListVenituri}">
+                                <td th:each="col : ${columnNamesVenituri}" th:text="${row[col.column_name]}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <h2>Bunuri</h2>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th th:each="col : ${columnNamesBunuri}" th:text="${col.column_name}"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="row : ${dataListBunuri}">
+                                <td th:each="col : ${columnNamesBunuri}" th:text="${row[col.column_name]}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <h2>Conturi Bancare</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th th:each="col : ${columnNamesConturiBancare}" th:text="${col.column_name}"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="row : ${dataListConturiBancare}">
+                        <td th:each="col : ${columnNamesConturiBancare}" th:text="${row[col.column_name]}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

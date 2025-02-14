@@ -1,0 +1,128 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <title>Declarare conturi bancare</title>
+</head>
+<body>
+<div class="page">
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/images/logoANAF.png" alt="logo" class="logo_img">
+            <p>Agenția Națională de Administrare Fiscală</p>
+        </div>
+
+        <div class="login_display">
+            <p>Bun venit, <b><span th:text="${username}"></span></b>!</p>
+            <div class="options">
+                <a href="/logout">Logout</a>
+                <a href="/">Pagina principală</a>
+                <a href="/informatii">Informații personale</a>
+                <a href="/venituri">Declarare venituri</a>
+                <a href="/bunuri">Declarare bunuri</a>
+                <a href="/plata_taxe">Plătește taxele</a>
+                <a href="/istoric_taxe">Istoric taxe</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="form_container">
+        <div class="title">
+            <h2>Declarare conturi bancare</h2>
+
+            <div class="border-decoration">
+                <span class="bd1"></span>
+                <span class="bd2"></span>
+                <span class="bd3"></span>
+            </div>
+        </div>
+
+        <form action="/conturi_bancare" method="post" class="form">
+            <label for="IBAN">IBAN:</label>
+            <input type="text" id="IBAN" name="IBAN" th:value="${IBAN}">
+
+            <label for="banca">Banca:</label>
+            <input type="text" id="banca" name="banca" th:value="${banca}">
+
+            <label for="tip_cont">Tip cont:</label>
+            <select id="tip_cont" name="tip_cont">
+                <option value="" selected disabled>Alege o optiune</option>
+                <option value="economii" th:selected="${tip_cont == 'economii'}">Economii</option>
+                <option value="salariu" th:selected="${tip_cont == 'salariu'}">Salariu</option>
+                <option value="debit" th:selected="${tip_cont == 'debit'}">Debit</option>
+                <option value="credit" th:selected="${tip_cont == 'credit'}">Credit</option>
+                <option value="depozit" th:selected="${tip_cont == 'depozit'}">Depozit</option>
+                <option value="curent" th:selected="${tip_cont == 'curent'}">Curent</option>
+                <option value="alte_tipuri" th:selected="${tip_cont == 'alte_tipuri'}">Alte tipuri</option>
+            </select>
+
+            <button type="submit">Salvează</button>
+        </form>
+
+        <!--error message-->
+        <div th:if="${errorMessage}" class="">
+            <p class="error_message" th:text="${errorMessage}"></p>
+        </div>
+
+    </div>
+
+    <div class="h_space1"></div>
+
+    <div th:if="${conturiExists}" class="table_container">
+        <div class="title">
+            <h2>Lista conturi bancare</h2>
+
+            <div class="border-decoration">
+                <span class="bd1"></span>
+                <span class="bd2"></span>
+                <span class="bd3"></span>
+            </div>
+        </div>
+
+        <table>
+            <tr>
+                <th>IBAN</th>
+                <th>Banca</th>
+                <th>Tip cont</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr th:each="cont : ${conturi}">
+                <td th:text="${cont.IBAN}"></td>
+                <td th:text="${cont.banca}"></td>
+                <td th:text="${#strings.capitalize(cont.tip_cont)}"></td>
+                <td>
+                    <form action="/conturi_bancare/delete/" method="post">
+                        <input type="hidden" name="Id_cont" th:value="${cont.Id_cont}">
+                        <input type="hidden" name="action" value="check">
+                        <button type="submit" class="delete_button">Șterge</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/conturi_bancare/update/" method="get">
+                        <input type="hidden" name="Id_cont" th:value="${cont.Id_cont}">
+                        <button type="submit" class="update_button">Actualizează</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div th:if="${deleteCheck}" class="modal">
+    <div class="modal_box">
+        <p>Confirmati stergerea?</p>
+        <form action="/conturi_bancare/delete/" method="post">
+            <input type="hidden" name="Id_cont" th:value="${Id_cont}">
+            <button type="submit" name="action" value="da">Da</button>
+            <button type="submit" name="action" value="nu">Nu</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,416 @@
+/* #2E4CA6 
+ #4973F2 
+ #4167D9 
+ #8DA6F2 
+ #F2F2F2  */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #F2F2F2;
+    color: #F2F2F2;
+}
+
+.page {
+    display: flex;
+    gap: 36px;
+    height: 100vh;
+
+.sidebar {
+    height: 100%;
+    width: 256px;
+    background: #4973F2;
+    border-right: 5px solid #2E4CA6;
+    padding: 24px 12px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.logo_img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.logo p {
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.login_display {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-left: 8px;
+}
+
+.login_display a {
+    text-decoration: none;
+    color: #F2F2F2;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.login_display a:hover {
+    color: #8DA6F2;
+}
+
+.login_display a:active {
+    color: #4167D9;
+}
+
+.login_display a:visited {
+    color: #F2F2F2;
+}
+
+.news_page {
+    width: 60% !important;
+}
+
+.width_decoration {
+    width: max(18%, 256px);
+}
+
+.form_container, .table_container, .news_page {
+    padding: 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: max(18%, 256px);
+
+    color: #2E4CA6;
+}}
+
+.news_page a {
+    text-decoration: none;
+    color: #2E4CA6;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.news_page li {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.news_page ol {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.news_page a:hover {
+    color: #8DA6F2;
+    text-decoration: underline;
+}
+
+.title h2 {
+    font-size: 36px;
+    font-weight: 600;
+    padding-bottom: 8px;
+    white-space: nowrap;
+    color: #2E4CA6;
+}
+
+.border-decoration {
+    display: flex;
+    gap:4px;
+}
+.border-decoration span {
+    display: block;
+    height: 3px;
+}
+
+.bd1 {
+    width: 20%;
+    background: #2E4CA6;
+}
+
+.bd2 {
+    width: 12%;
+    background: #4973F2;
+}
+
+.bd3 {
+    width: 5%;
+    background: #4167D9;
+}
+
+.form input, .form select {
+    padding: 8px;
+    border: 1px solid #2E4CA6;
+    border-radius: 4px;
+}
+
+.form button {
+    padding: 8px;
+    border: 1px solid #2E4CA6;
+    border-radius: 4px;
+    background: #4973F2;
+    color: #F2F2F2;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.form button:hover {
+    background: #8DA6F2;
+}
+
+.form button:active {
+    background: #4167D9;
+}
+
+.form button:visited {
+    background: #4973F2;
+}
+
+.form button:focus {
+    outline: none;
+}
+
+.form button:disabled {
+    background: #8DA6F2;
+    color: #F2F2F2;
+}
+
+.form button:disabled:hover {
+    background: #8DA6F2;
+}
+
+.form button:disabled:active {
+    background: #4167D9;
+}
+
+.form button:disabled:visited {
+    background: #4973F2;
+}
+
+.form button:disabled:focus {
+    outline: none;
+}
+
+.form select {
+    appearance: menulist-button;
+    color: #2E4CA6;
+    cursor: pointer;
+}
+
+.form option {
+    padding: 8px;
+    border: 1px solid #2E4CA6;
+    border-radius: 4px;
+}
+
+.form option:hover {
+    background: #8DA6F2;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form_container a {
+    text-decoration: none;
+    color: #2E4CA6;
+    font-size: 14px;
+
+}
+
+.form_container a:hover {
+    color: #8DA6F2;
+}
+
+.form_container a:active {
+    color: #4167D9;
+}
+
+.form_container a:visited {
+    color: #2E4CA6;
+}
+
+.form_container p {
+    font-size: 14px;
+    color: #2E4CA6;
+    font-weight: 600;
+}
+
+.flex {
+    display: flex;
+    gap: 8px;
+}
+
+.big-gap {
+    gap: 32px;
+}
+
+.flex a:hover {
+    text-decoration: underline;
+    color: #2E4CA6;
+}
+
+.input_radio {
+    display: flex;
+    gap: 8px;
+}
+
+.h_space {
+    width: 64px;
+}
+
+.h_space1 {
+    width: 90px;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.options a {
+    text-decoration: none;
+    color: #F2F2F2;
+    font-size: 14px;
+    font-weight: 600;
+    padding-bottom: 8px;
+}
+
+.options a:hover {
+    text-decoration: underline;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    white-space: nowrap;
+    font-size: 18px;
+}
+
+th {
+    background: #4973F2;
+    color: #F2F2F2;
+    font-weight: 600;
+    padding: 12px;
+}
+
+td {
+    background: #8DA6F2;
+    color: #F2F2F2;
+    padding: 12px;
+}
+
+.table_container button {
+    padding: 8px;
+    border: 1px solid #2E4CA6;
+    border-radius: 4px;
+    background: #4973F2;
+    color: #F2F2F2;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.table_container button:hover {
+    background: #4167D9;
+}
+
+.buttons {
+    display: flex;
+    gap: 8px;
+    flex-direction: row;
+}
+
+li {
+    margin-bottom: 18px;
+}
+
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.modal_box {
+    width: 20%;
+    height: 20%;
+    background: #F2F2F2;
+    border: 3px solid #2E4CA6;
+    border-radius: 8px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.modal_box p {
+    font-size: 18px;
+    color: #2E4CA6;
+    font-weight: 600;
+}
+
+.modal_box form {
+    display: flex;
+    gap: 8px;
+}
+
+.modal_box button {
+    padding: 8px;
+    border: 1px solid #2E4CA6;
+    border-radius: 4px;
+    background: #4973F2;
+    color: #F2F2F2;
+    font-weight: 600;
+}
+
+.modal_box button:hover {
+    background: #4167D9;
+}
+
+.view-pers h2 {
+    margin:8px 0;
+}
+
+.no_data {
+    font-weight: 600;
+    color: #2E4CA6;
+    white-space: nowrap;
+}
+
+.search {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.search input {
+    padding: 8px;
+    border: 1px solid #2E4CA6;
+    border-radius: 4px;
+}
+
+.search label {
+    font-size: 16px;
+    color: #2E4CA6;
+    font-weight: 600;
+}
+
+
