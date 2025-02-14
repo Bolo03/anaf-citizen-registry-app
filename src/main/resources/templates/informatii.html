@@ -1,0 +1,125 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <title>Informații personale</title>
+</head>
+<body>
+    <div class="page">
+        <div class="sidebar">
+            <div class="logo">
+                <img src="/images/logoANAF.png" alt="logo" class="logo_img">
+                <p>Agenția Națională de Administrare Fiscală</p>
+            </div>
+
+            <div class="login_display">
+                <p>Bun venit, <b><span th:text="${username}"></span></b>!</p>
+                <div class="options">
+                    <a href="/logout">Logout</a>
+                    <a href="/">Pagina principală</a>
+                    <a href="/venituri">Declarare venituri</a>
+                    <a href="/bunuri">Declarare bunuri</a>
+                    <a href="/conturi_bancare">Declarare conturi bancare</a>
+                    <a href="/plata_taxe">Plătește taxele</a>
+                    <a href="/istoric_taxe">Istoric taxe</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="form_container">
+            <div class="title">
+                <h2>Informații personale</h2>
+
+                <div class="border-decoration">
+                    <span class="bd1"></span>
+                    <span class="bd2"></span>
+                    <span class="bd3"></span>
+                </div>
+            </div>
+
+            <form action="/informatii" method="post" class="form">
+
+                <label for="nume_persoana">Nume:</label>
+                <input type="text" id="nume_persoana" name="nume_persoana" th:value="${nume_persoana}" >
+
+                <label for="prenume_persoana">Prenume:</label>
+                <input type="text" id="prenume_persoana" name="prenume_persoana" th:value="${prenume_persoana}" >
+
+                <label for="cnp_persoana">CNP:</label>
+                <input type="text" id="cnp_persoana" name="cnp_persoana" th:value="${cnp_persoana}" >
+
+                <label for="data_nasterii_persoana">Data nașterii:</label>
+                <input type="date" id="data_nasterii_persoana" name="data_nasterii_persoana"  th:value="${data_nasterii_persoana}" >
+
+                <div class="input_radio">
+                    <label>Sex:</label>
+                    <label for="sex_M">M</label>
+                    <input type="radio" id="sex_M" name="sex_persoana" value="M" th:checked="${sex_persoana == 'M'}" >
+                    <label for="sex_F">F</label>
+                    <input type="radio" id="sex_F" name="sex_persoana" value="F" th:checked="${sex_persoana == 'F'}">
+                </div>
+
+                <label for="email_persoana">Email:</label>
+                <input type="email" id="email_persoana" name="email_persoana" th:value="${email_persoana}" >
+
+                <label for="telefon_persoana">Telefon:</label>
+                <input type="text" id="telefon_persoana" name="telefon_persoana" th:value="${telefon_persoana}" >
+
+                <button type="submit">Salvează</button>
+            </form>
+
+            <!-- Error message -->
+            <div th:if="${errorMessageInfo}">
+                <p class="error_message" th:text="${errorMessageInfo}"></p>
+            </div>
+
+
+        </div>
+
+        <div class="h_space"></div>
+
+        <div class="form_container">
+            <div class="title">
+                <h2>Adresa</h2>
+
+                <div class="border-decoration">
+                    <span class="bd1"></span>
+                    <span class="bd2"></span>
+                    <span class="bd3"></span>
+                </div>
+            </div>
+
+            <form action="/adresa" method="post" class="form">
+
+                <label for="judet">Județ:</label>
+                <input type="text" id="judet" name="judet" th:value="${judet}" >
+
+                <label for="oras">Oras:</label>
+                <input type="text" id="oras" name="oras" th:value="${oras}" >
+
+                <label for="strada">Strada:</label>
+                <input type="text" id="strada" name="strada" th:value="${strada}" >
+
+                <label for="numar">Număr:</label>
+                <input type="text" id="numar" name="numar" th:value="${numar}" >
+
+                <label for="cod_postal">Cod poștal:</label>
+                <input type="text" id="cod_postal" name="cod_postal" th:value="${cod_postal}" >
+
+                <button type="submit">Salvează</button>
+            </form>
+
+            <div th:if="${errorMessageAdresa}">
+                <p class="error_message" th:text="${errorMessageAdresa}"></p>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>

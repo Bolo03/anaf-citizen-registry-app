@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <th:block xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"></th:block>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <title>ANAF</title>
+</head>
+<!-- #2E4CA6 -->
+<!-- #4973F2 -->
+<!-- #4167D9 -->
+<!-- #8DA6F2 -->
+<!-- #F2F2F2 -->
+<body>
+<div class="page">
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/images/logoANAF.png" alt="logo" class="logo_img">
+            <p>Agenția Națională de Administrare Fiscală</p>
+        </div>
+
+        <div sec:authorize="!isAuthenticated()" class="login_display">
+            <p>Nu esți conectat!</p>
+            <div class="options">
+                <a href="/login">Intră în cont</a>
+                <a href="/register">Înregistrează-te</a>
+            </div>
+        </div>
+
+
+        <div sec:authorize="isAuthenticated()" class="login_display">
+            <p>Bun venit, <b><span sec:authentication="name"></span></b>!</p>
+
+
+            <div sec:authorize="hasRole('ADMIN')" class="options">
+                <a href="/logout">Logout</a>
+                <a href="/vizualizare_tabele">Vizualizare tabelele</a>
+                <a href="/vizualizare_persoane">Vizualizare persoane</a>
+                <a href="/taxe">Adaugă taxe</a>
+                <a href="/vizualizare_taxe">Vizualizare taxe</a>
+
+            </div>
+
+            <div sec:authorize="hasRole('USER')" class="options">
+                <a href="/logout">Logout</a>
+                <a href="/informatii">Informații personale</a>
+                <a href="/venituri">Declarare venituri</a>
+                <a href="/bunuri">Declarare bunuri</a>
+                <a href="/conturi_bancare">Declarare conturi bancare</a>
+                <a href="/plata_taxe">Plătește taxele</a>
+                <a href="/istoric_taxe">Istoric taxe</a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="news_page">
+        <div class="title">
+            <h2>Ultimele anunțuri</h2>
+
+            <div class="border-decoration width_decoration">
+                <span class="bd1"></span>
+                <span class="bd2"></span>
+                <span class="bd3"></span>
+            </div>
+        </div>
+
+        <ol>
+            <li>
+                <h3>Anunț: Ghid pentru Contribuabili</h3>
+                <h4>📘 Nou: Ghid complet pentru depunerea declarațiilor fiscale</h4>
+                <p>ANAF a publicat un nou ghid destinat contribuabililor, care explică pas cu pas cum să depuneți declarațiile fiscale online.</p>
+                <p>➡️<a href="https://www.anaf.ro/anaf/internet/ANAF/acasa" target="_blank">Descarcă ghidul</a></p>
+            </li>
+            <li>
+                <h3>Avertizare: Mesaje Frauduloase</h3>
+                <h4>⚠️ Atenție la e-mailurile false</h4>
+                <p>ANAF nu solicită informații bancare sau plăți prin e-mailuri nesolicitate. Dacă primiți astfel de mesaje, raportați imediat la adresa noastră oficială.</p>
+                <p>➡️<a href="https://www.anaf.ro/anaf/internet/ANAF/acasa" target="_blank">Cum să recunoști fraudele</a></p>
+            </li>
+            <li>
+                <h3>Anunț: Modificări Legislative</h3>
+                <h4>📰 Noua lege privind facilitățile fiscale</h4>
+                <p>A fost publicată legea care prevede modificări ale impozitului pe venit pentru microîntreprinderi. Vă recomandăm să consultați legislația actualizată pentru conformitate.</p>
+                <p>➡️<a href="https://www.anaf.ro/anaf/internet/ANAF/acasa" target="_blank">Citește actul normaitv</a></p>
+            </li>
+            <li>
+                <h3>Reminder: Plată Obligații Fiscale</h3>
+                <h4>📆 Termen Limită: 25 Noiembrie 2024</h4>
+                <p>Reamintim contribuabililor că data limită pentru plata impozitelor și contribuțiilor sociale aferente trimestrului III este aproape. Asigurați-vă că efectuați plățile la timp.</p>
+                <p>➡️<a href="https://www.anaf.ro/anaf/internet/ANAF/acasa" target="_blank">Instrucțiuni pentru plată</a></p>
+            </li>
+            <li>
+                <h3>Campanie: Informare SPV</h3>
+                <h4>🌟 Beneficiile utilizării Spațiului Privat Virtual</h4>
+                <p>Înscrie-te în SPV și accesează simplu și rapid documentele fiscale, notificările și declarațiile tale!</p>
+                <p>➡️<a href="https://www.anaf.ro/anaf/internet/ANAF/acasa" target="_blank">Află cum să te înregistrezi</a></p>
+            </li>
+            <li>
+                <h3> Anunț: Licitații ANAF</h3>
+                <h4>📢 Vânzare bunuri confiscate</h4>
+                <p>ANAF organizează o licitație publică pentru vânzarea bunurilor confiscate. Data: 5 Decembrie 2024. Participarea se face prin înscriere prealabilă.</p>
+                <p>➡️<a href="https://www.anaf.ro/anaf/internet/ANAF/acasa" target="_blank">Detalii despre licitație</a></p>
+            </li>
+        </ol>
+    </div>
+</div>
+</body>
+</html>

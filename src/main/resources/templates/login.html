@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+<div class="page">
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/images/logoANAF.png" alt="logo" class="logo_img">
+            <p>Agenția Națională de Administrare Fiscală</p>
+        </div>
+
+        <div class="login_display">
+            <div class="options">
+                <a href="/">Pagina principală</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="form_container">
+        <div class="title">
+            <h2>Intră în cont</h2>
+
+            <div class="border-decoration">
+                <span class="bd1"></span>
+                <span class="bd2"></span>
+                <span class="bd3"></span>
+            </div>
+        </div>
+
+        <form action="/login" method="post" class="form">
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username">
+
+            <label for="password">Parola:</label>
+            <input type="password" id="password" name="password">
+
+
+            <button type="submit">Login</button>
+        </form>
+
+        <div th:if="${errorMessage}">
+            <p th:text="${errorMessage}"></p>
+        </div>
+
+        <div class="flex">
+            <p>Nu ai cont? </p>
+            <a href="/register">Înregistreaza-te</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

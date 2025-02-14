@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <th:block xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"></th:block>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <title>ANAF</title>
+</head>
+<!-- #2E4CA6 -->
+<!-- #4973F2 -->
+<!-- #4167D9 -->
+<!-- #8DA6F2 -->
+<!-- #F2F2F2 -->
+<body>
+<div class="page">
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/images/logoANAF.png" alt="logo" class="logo_img">
+            <p>Agenția Națională de Administrare Fiscală</p>
+        </div>
+
+        <div class="login_display">
+            <p>Bun venit, <b><span th:text="${username}"></span></b>!</p>
+            <div class="options">
+                <a href="/logout">Logout</a>
+                <a href="/">Pagina principală</a>
+                <a href="/vizualizare_tabele">Vizualizare tabele</a>
+                <a href="/vizualizare_persoane">Vizualizare persoane</a>
+                <a href="/taxe">Adaugă taxe</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="table_container">
+        <div class="title">
+            <h2>Vizualizare taxe</h2>
+
+            <div class="border-decoration">
+                <span class="bd1"></span>
+                <span class="bd2"></span>
+                <span class="bd3"></span>
+            </div>
+        </div>
+
+        <form action="/vizualizare_taxe" method="post">
+            <div class="search">
+                <h2>Alege tipul de taxă</h2>
+                <div>
+                    <input type="radio" id="taxa_platita" name="tip_taxa" value="da" onchange="this.form.submit()"
+                           th:checked="${tip_taxa == 'da'}">
+                    <label for="taxa_platita">Taxe Plătite</label>
+                </div>
+                <div>
+                    <input type="radio" id="taxa_neplatita" name="tip_taxa" value="nu" onchange="this.form.submit()"
+                           th:checked="${tip_taxa == 'nu'}">
+                    <label for="taxa_neplatita">Taxe Neplătite</label>
+                </div>
+            </div>
+        </form>
+
+        <div class="table" th:if="${tip_taxa}">
+            <table>
+                <thead>
+                <tr>
+                    <th th:each="col : ${columnNames}" th:text="${col}"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="row : ${dataList}">
+                    <td th:each="col : ${columnNames}" th:text="${row.get(col)}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+</html>

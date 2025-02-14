@@ -1,0 +1,127 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <title>Declarare bunuri</title>
+</head>
+<body>
+<div class="page">
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/images/logoANAF.png" alt="logo" class="logo_img">
+            <p>Agenția Națională de Administrare Fiscală</p>
+        </div>
+
+        <div class="login_display">
+            <p>Bun venit, <b><span th:text="${username}"></span></b>!</p>
+            <div class="options">
+                <a href="/logout">Logout</a>
+                <a href="/">Pagina principală</a>
+                <a href="/informatii">Informatii personale</a>
+                <a href="/venituri">Declarare venituri</a>
+                <a href="/conturi_bancare">Declarare conturi bancare</a>
+                <a href="/plata_taxe">Plătește taxele</a>
+                <a href="/istoric_taxe">Istoric taxe</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="form_container">
+        <div class="title">
+            <h2>Declarare bunuri</h2>
+
+            <div class="border-decoration">
+                <span class="bd1"></span>
+                <span class="bd2"></span>
+                <span class="bd3"></span>
+            </div>
+        </div>
+
+        <form action="/bunuri" method="post" class="form">
+            <label for="tip_bun">Tip bun:</label>
+            <select id="tip_bun" name="tip_bun">
+                <option value="" selected disabled>Alege o optiune</option>
+                <option value="apartament" th:selected="${tip_bun == 'apartament'}">Apartament</option>
+                <option value="casa" th:selected="${tip_bun == 'casa'}">Casa</option>
+                <option value="teren" th:selected="${tip_bun == 'teren'}">Teren</option>
+                <option value="autoturism" th:selected="${tip_bun == 'autoturism'}">Autoturism</option>
+                <option value="alte_tipuri" th:selected="${tip_bun == 'alte_tipuri'}">Alte tipuri</option>
+            </select>
+
+            <label for="valoare">Valoare:</label>
+            <input type="number" id="valoare" name="valoare" th:value="${valoare}">
+
+            <label for="data_achizitiei">Data achiziției:</label>
+            <input type="date" id="data_achizitiei" name="data_achizitiei" th:value="${data_achizitiei}">
+
+            <button type="submit" class="submit_button">Salvează</button>
+        </form>
+
+        <!--error message-->
+        <div th:if="${errorMessage}" >
+            <p class="error_message" th:text="${errorMessage}"></p>
+        </div>
+
+    </div>
+
+    <div class="h_space"></div>
+
+    <div th:if="${bunuriExists}" class="table_container">
+        <div class="title">
+            <h2>Bunuri declarate</h2>
+
+            <div class="border-decoration">
+                <span class="bd1"></span>
+                <span class="bd2"></span>
+                <span class="bd3"></span>
+            </div>
+        </div>
+
+        <table>
+            <tr>
+                <th>Tip bun</th>
+                <th>Valoare</th>
+                <th>Data achiziției</th>
+                <th></th>
+                <th></th>
+
+            </tr>
+            <tr th:each="bun : ${bunuri}">
+                <td th:text="${bun.tip_bun}"></td>
+                <td th:text="${bun.valoare}"></td>
+                <td th:text="${bun.data_achizitiei}"></td>
+                <td>
+                    <form action="/bunuri/delete/" method="post">
+                        <input type="hidden" name="ID_bun" th:value="${bun.ID_bun}">
+                        <input type="hidden" name="action" value="check">
+                        <button type="submit" class="delete_button">Șterge</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/bunuri/update/" method="get">
+                        <input type="hidden" name="ID_bun" th:value="${bun.ID_bun}">
+                        <button type="submit" class="update_button">Actualizează</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div th:if="${deleteCheck}" class="modal">
+    <div class="modal_box">
+        <p>Confirmati stergerea?</p>
+        <form action="/bunuri/delete/" method="post">
+            <input type="hidden" name="ID_bun" th:value="${ID_bun}">
+            <button type="submit" name="action" value="da">Da</button>
+            <button type="submit" name="action" value="nu">Nu</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

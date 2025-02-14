@@ -1,0 +1,96 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <title>Informații personale</title>
+</head>
+<body>
+<div class="page">
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/images/logoANAF.png" alt="logo" class="logo_img">
+            <p>Agenția Națională de Administrare Fiscală</p>
+        </div>
+
+        <div class="login_display">
+            <p>Bun venit, <b><span th:text="${username}"></span></b>!</p>
+            <div class="options">
+                <a href="/logout">Logout</a>
+                <a href="/">Pagina principală</a>
+                <a href="/venituri">Declarare venituri</a>
+                <a href="/bunuri">Declarare bunuri</a>
+                <a href="/conturi_bancare">Declarare conturi bancare</a>
+                <a href="/istoric_taxe">Istoric taxe</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="table_container" >
+        <div class="title">
+            <h2>Plătește taxele</h2>
+
+            <div class="border-decoration">
+                <span class="bd1"></span>
+                <span class="bd2"></span>
+                <span class="bd3"></span>
+            </div>
+        </div>
+
+        <div class="table" th:if="${!dataList.isEmpty()}">
+            <table>
+                <thead>
+                <tr>
+                    <th>Tip taxă</th>
+                    <th>Sumă de plată</th>
+                    <th>Termen de plată</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="row : ${dataList}">
+                    <td th:text="${row.tip_taxa}"></td>
+                    <td th:text="${row.suma_taxa}"></td>
+                    <td th:text="${row.data_scadenta}"></td>
+                    <td>
+                        <form action="/plata_taxe" method="post">
+                            <input type="hidden" name="id" th:value="${row.ID_taxa}">
+                            <button type="submit" class="submit_button">Plătește</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p class="error_message" th:text="${mesaj}"></p>
+
+        <div th:if="${dataList.isEmpty()}" class="no_data">
+            <h2>Nu există taxe de plătit.</h2>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div th:if="${plata_taxa}" class="modal">
+    <div class="modal_box">
+        <p>Alegeți contul bacar pentru a efectua plata:</p>
+        <p th:text="${dataListTaxa.tip_taxa} +' '+${dataListTaxa.suma_taxa}"></p>
+        <form action="/plata_taxe" method="post" class="form">
+            <input type="hidden" name="id" th:value="${id_taxa}">
+            <select name="id_cont">
+                <option value="" selected disabled>Alegeți un cont</option>
+                <option th:each="row : ${dataListConturi}" th:value="${row.ID_cont}" th:text="${row.IBAN} +' '+ ${row.tip_cont}"></option>
+            </select>
+            <button type="submit" class="submit_button">Plătește</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

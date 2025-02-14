@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <th:block xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"></th:block>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <title>ANAF</title>
+</head>
+<!-- #2E4CA6 -->
+<!-- #4973F2 -->
+<!-- #4167D9 -->
+<!-- #8DA6F2 -->
+<!-- #F2F2F2 -->
+<body>
+<div class="page">
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/images/logoANAF.png" alt="logo" class="logo_img">
+            <p>Agenția Națională de Administrare Fiscală</p>
+        </div>
+
+        <div class="login_display">
+            <p>Bun venit, <b><span th:text="${username}"></span></b>!</p>
+            <div class="options">
+                <a href="/logout">Logout</a>
+                <a href="/">Pagina principală</a>
+                <a href="/vizualizare_tabele">Vizualizare tabele</a>
+                <a href="/vizualizare_persoane">Vizualizare persoane</a>
+                <a href="/vizualizare_taxe">Vizualizare taxe</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="form_container">
+        <div class="title">
+            <h2>Adaugă taxe</h2>
+
+            <div class="border-decoration">
+                <span class="bd1"></span>
+                <span class="bd2"></span>
+                <span class="bd3"></span>
+            </div>
+        </div>
+
+        <form action="/taxe" method="post" class="form">
+            <label for="persoana">Selecteaza persoana:</label>
+            <select id="persoana" name="persoana" onchange="this.form.submit()">
+                <option value="" disabled th:if="${selectedPersonId == null}" selected>Alege o optiune</option>
+                <option th:each="persoana : ${persoane}"
+                        th:value="${persoana.ID_persoana}"
+                        th:selected="${persoana.ID_persoana == selectedPersonId}"
+                        th:text="${persoana.nume} + ' ' + ${persoana.prenume}">
+                </option>
+            </select>
+        </form>
+
+        <form action="/taxe" method="post" class="form" th:if="${selectedPersonId != null}">
+            <input type="hidden" name="persoana" th:value="${selectedPersonId}" />
+
+            <label for="tip_taxa">Tip taxa:</label>
+            <select id="tip_taxa" name="tip_taxa" onchange="this.form.submit()">
+                <option value="" disabled th:if="${selectedTaxType == null}" selected>Alege o optiune</option>
+                <option value="impozit_venit" th:selected="${selectedTaxType == 'impozit_venit'}">Impozit pe venit</option>
+                <option value="impozit_cladire" th:selected="${selectedTaxType == 'impozit_cladire'}">Impozit pe cladire</option>
+                <option value="impozit_teren" th:selected="${selectedTaxType == 'impozit_teren'}">Impozit pe teren</option>
+                <option value="impozit_auto" th:selected="${selectedTaxType == 'impozit_auto'}">Impozit pe autoturism</option>
+            </select>
+        </form>
+
+        <form action="/taxe" method="post" class="form" th:if="${selectedTaxType != null}">
+            <input type="hidden" name="persoana" th:value="${selectedPersonId}" />
+            <input type="hidden" name="tip_taxa" th:value="${selectedTaxType}" />
+
+            <label for="venit" th:if="${selectedTaxType == 'impozit_venit'}">Selectati venitul:</label>
+            <select id="venit" name="venit" th:if="${selectedTaxType == 'impozit_venit'}" onchange="this.form.submit()">
+
+                <option value="" disabled th:if="${selectedIncomeId == null}" selected>Alege o optiune</option>
+                <option th:each="venit : ${venituri}"
+                        th:value="${venit.ID_venit}"
+                        th:selected="${venit.ID_venit == selectedIncomeId}"
+                        th:text="${venit.tip_venit} + ' ' + ${venit.suma_venit}">
+                </option>
+            </select>
+
+            <label for="cladire" th:if="${selectedTaxType == 'impozit_cladire'}">Selectati cladirea:</label>
+            <select id="cladire" name="cladire" th:if="${selectedTaxType == 'impozit_cladire'}" onchange="this.form.submit()">
+
+                <option value="" disabled th:if="${selectedBuildingId == null}" selected>Alege o optiune</option>
+                <option th:each="cladire : ${cladiri}"
+                        th:value="${cladire.ID_bun}"
+                        th:selected="${cladire.ID_bun == selectedBuildingId}"
+                        th:text="${cladire.tip_bun} + ' ' + ${cladire.valoare}">
+                </option>
+            </select>
+
+            <label for="teren" th:if="${selectedTaxType == 'impozit_teren'}">Selectati terenul:</label>
+            <select id="teren" name="teren" th:if="${selectedTaxType == 'impozit_teren'}" onchange="this.form.submit()">
+
+                <option value="" disabled th:if="${selectedLandId == null}" selected>Alege o optiune</option>
+                <option th:each="teren : ${terenuri}"
+                        th:value="${teren.ID_bun}"
+                        th:selected="${teren.ID_bun == selectedLandId}"
+                        th:text="${teren.tip_bun} + ' ' + ${teren.valoare}">
+                </option>
+            </select>
+
+            <label for="autoturism" th:if="${selectedTaxType == 'impozit_auto'}">Selectati autoturismul:</label>
+            <select id="autoturism" name="autoturism" th:if="${selectedTaxType == 'impozit_auto'}" onchange="this.form.submit()">
+
+                <option value="" disabled th:if="${selectedCarId == null}" selected>Alege o optiune</option>
+                <option th:each="autoturism : ${autoturisme}"
+                        th:value="${autoturism.ID_bun}"
+                        th:selected="${autoturism.ID_bun == selectedCarId}"
+                        th:text="${autoturism.tip_bun} + ' ' + ${autoturism.valoare}">
+                </option>
+            </select>
+        </form>
+
+        <form action="/taxe" method="post" class="form" th:if="${selectedIncomeId != null || selectedBuildingId != null || selectedLandId != null || selectedCarId != null}">
+            <input type="hidden" name="persoana" th:value="${selectedPersonId}" />
+            <input type="hidden" name="tip_taxa" th:value="${selectedTaxType}" />
+            <input type="hidden" name="venit" th:value="${selectedIncomeId}" />
+            <input type="hidden" name="cladire" th:value="${selectedBuildingId}" />
+            <input type="hidden" name="teren" th:value="${selectedLandId}" />
+            <input type="hidden" name="autoturism" th:value="${selectedCarId}" />
+
+            <label for="suma_impozit">Suma:</label>
+            <input type="text" id="suma_impozit" name="suma_impozit" th:value="${suma_impozit}">
+
+            <label for="data_scadenta">Data scadenta:</label>
+            <input type="date" id="data_scadenta" name="data_scadenta" th:value="${data_scadenta}">
+
+            <button type="submit" class="submit_button">Salvează</button>
+        </form>
+
+        <p class="error_message" th:text="${errorMessage}"></p>
+    </div>
+</div>
+
+</body>
+</html>

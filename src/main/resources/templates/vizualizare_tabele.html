@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <th:block xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"></th:block>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <title>ANAF</title>
+</head>
+<!-- #2E4CA6 -->
+<!-- #4973F2 -->
+<!-- #4167D9 -->
+<!-- #8DA6F2 -->
+<!-- #F2F2F2 -->
+<body>
+<div class="page">
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/images/logoANAF.png" alt="logo" class="logo_img">
+            <p>Agenția Națională de Administrare Fiscală</p>
+        </div>
+
+        <div class="login_display">
+            <p>Bun venit, <b><span th:text="${username}"></span></b>!</p>
+            <div class="options">
+                <a href="/logout">Logout</a>
+                <a href="/">Pagina principală</a>
+                <a href="/vizualizare_persoane">Vizualizare persoane</a>
+                <a href="/taxe">Adaugă taxe</a>
+                <a href="/vizualizare_taxe">Vizualizare taxe</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="table_container">
+        <div class="title">
+            <h2>Vizualizare tabele</h2>
+
+            <div class="border-decoration">
+                <span class="bd1"></span>
+                <span class="bd2"></span>
+                <span class="bd3"></span>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <form action="/vizualizare_tabele" method="get">
+                <button type="submit" name="table" value="USERS" class="button">USERS</button>
+            </form>
+            <form action="/vizualizare_tabele" method="get">
+                <button type="submit" name="table" value="PERSOANA" class="button">PERSOANA</button>
+            </form>
+            <form action="/vizualizare_tabele" method="get">
+                <button type="submit" name="table" value="ADRESA" class="button">ADRESA</button>
+            </form>
+            <form action="/vizualizare_tabele" method="get">
+                <button type="submit" name="table" value="VENIT" class="button">VENIT</button>
+            </form>
+            <form action="/vizualizare_tabele" method="get">
+                <button type="submit" name="table" value="BUNURI" class="button">BUNURI</button>
+            </form>
+            <form action="/vizualizare_tabele" method="get">
+                <button type="submit" name="table" value="CONTURI_BANCARE" class="button">CONTURI_BANCARE</button>
+            </form>
+            <form action="/vizualizare_tabele" method="get">
+                <button type="submit" name="table" value="PERSOANE_BUNURI" class="button">PERSOANE_BUNURI</button>
+            </form>
+            <form action="/vizualizare_tabele" method="get">
+                <button type="submit" name="table" value="TAXE" class="button">TAXE</button>
+            </form>
+        </div>
+
+        <div class="table">
+            <table>
+                <thead>
+                <tr>
+                    <th th:each="col : ${columnNames}" th:text="${col.column_name}"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="row : ${dataList}">
+                    <td th:each="col : ${columnNames}" th:text="${row[col.column_name]}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
